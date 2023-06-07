@@ -18,8 +18,7 @@ public class Product {
     private float price;
     @NotBlank
     private String category;
-
     private String pictureUrl;
-    private float weight;
+
 
 }
