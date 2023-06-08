@@ -26,25 +26,22 @@ public class User {
     @NotEmpty(message = "Last name should not be empty")
     @Column(nullable = false)
     private String lastName;
-
-    @Column(nullable = false)
-    @NotEmpty(message = "Password should not be empty")
     private String password;
 
 
     @Email
-    @Column(unique=true , nullable = false)
+    @Column(unique = true, nullable = false)
     @NotEmpty(message = "email should not be empty")
     private String email;
 
-    public User(User user)
-    {
-        this.firstName=user.getFirstName();
-        this.lastName=user.getLastName();
-        this.email=user.getEmail();
-        this.password=user.getPassword();
+    public User(User user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
     }
-    @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
 }

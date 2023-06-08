@@ -85,7 +85,7 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" th:field="*{password}" class="form-control form-control-lg"  placeholder="Password" name="password"
-               id="password">
+               id="password" required>
         <p th:errors = "*{password}" class="text-danger"
            th:if="${#fields.hasErrors('password')}"></p>
       </div>
