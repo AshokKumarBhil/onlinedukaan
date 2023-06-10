@@ -9,12 +9,11 @@ import java.util.List;
 @Table(name = "roles")
 @Data
 public class Role {
+    @ManyToMany(mappedBy = "roles")
+    List<User> users;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long role_id;
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "roles")
-    List<User> users;
 }

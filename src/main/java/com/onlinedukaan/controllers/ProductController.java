@@ -15,16 +15,16 @@ public class ProductController {
     ProductService product_service;
 
     @GetMapping("/grocery")
-    public String getGrocery(Model model){
+    public String getGrocery(Model model) {
         List<Product> groceryProductList = product_service.getGrocery();
-        model.addAttribute("grocerylist",groceryProductList);
+        model.addAttribute("grocerylist", groceryProductList);
         return "groceryPage";
     }
 
     @GetMapping("/stationary")
-    public String getStationary(Model model){
+    public String getStationary(Model model) {
         List<Product> stationaryProductList = product_service.getStationary();
-        model.addAttribute("stationarylist",stationaryProductList);
+        model.addAttribute("stationarylist", stationaryProductList);
         return "stationaryPage";
     }
 }

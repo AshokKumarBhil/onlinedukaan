@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,8 @@ public class User {
     @Column(unique = true, nullable = false)
     @NotEmpty(message = "email should not be empty")
     private String email;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Role> roles = new ArrayList<>();
 
     public User(User user) {
         this.firstName = user.getFirstName();
@@ -40,8 +41,5 @@ public class User {
         this.email = user.getEmail();
         this.password = user.getPassword();
     }
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Role> roles = new ArrayList<>();
 
 }

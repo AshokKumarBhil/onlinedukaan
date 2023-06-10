@@ -9,14 +9,15 @@ import java.util.List;
 
 @Service
 public class ProductService {
- @Autowired
- ProductRepo product_repo;
+    @Autowired
+    ProductRepo product_repo;
     List<Product> productList;
+
     public List<Product> getGrocery() {
-       return productList;
+        return productList;
     }
 
     public List<Product> getStationary() {
-       return productList;
+        return productList;
     }
 }

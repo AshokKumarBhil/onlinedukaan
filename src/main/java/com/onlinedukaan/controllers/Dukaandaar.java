@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Dukaandaar {
 
     @GetMapping("/dukaandaar")
-    public String admin()
-    {
+    public String admin() {
         return "adminpage";
     }
 

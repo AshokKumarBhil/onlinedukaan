@@ -19,6 +19,14 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepo userRepo;
 
+    private static List<GrantedAuthority> getAuthorities(List<Role> roles) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepo.findUserByEmail(email);
@@ -32,12 +40,5 @@ public class MyUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), enabled, accountNonExpired,
                 credentialsNonExpired, accountNonLocked, getAuthorities(user.getRoles()));
-    }
-    private static List<GrantedAuthority> getAuthorities(List<Role> roles) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-        return authorities;
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
+@EnableWebSecurity
 public class SpringSecurityConfig {
 
 
@@ -82,10 +84,12 @@ public class SpringSecurityConfig {
                 .and()
                 .build();
     }
+
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(this.googleClientRegistration());
     }
+
     private ClientRegistration googleClientRegistration() {
         return ClientRegistration.withRegistrationId("google")
                 .clientId("381037347638-3m218q5nl1j3ac4atrau0gtvastua97p.apps.googleusercontent.com")
@@ -102,6 +106,7 @@ public class SpringSecurityConfig {
                 .clientName("Google")
                 .build();
     }
+
     @Bean
     public OAuth2AuthorizedClientService authorizedClientService() {
 
