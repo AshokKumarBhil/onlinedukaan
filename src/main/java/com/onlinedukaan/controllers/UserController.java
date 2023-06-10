@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import javax.validation.Valid;
 
 
@@ -34,22 +35,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String postAddUser(@Valid @ModelAttribute("user")  User user,BindingResult result , Model model ) {
+    public String postAddUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         User existingUser = user_service.findUserByEmail(user.getEmail());
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("user", user);
             return "/register";
         }
         user_service.addUser(user);
         return "customeradded";
     }
+
     @GetMapping("/signed")
-    public String postSignin()
-    {
+    public String postSignin() {
         return "welcome";
     }
 }

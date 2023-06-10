@@ -23,38 +23,39 @@ public class SpringSecurityConfig {
     UserDetailsService userDetailsService;
 
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-          http
-                  .authorizeRequests()
-                  .antMatchers("/","/register").permitAll()
-                  .antMatchers("/dukaandaar").hasRole("ADMIN")
-                  .anyRequest()
-                  .authenticated()
-                  .and()
-                  .formLogin()
-                  .loginPage("/signin")
-                  .usernameParameter("email")
-                  .passwordParameter("password")
-                  .permitAll()
-                  .defaultSuccessUrl("/signed")
-                  .failureUrl("/signin/error?true")
-                  .and()
-                  .logout()
-                  .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                  .logoutSuccessUrl("/signin")
-                  .invalidateHttpSession(true)
-                  .deleteCookies("JSESSIONID")
-                  .and()
-                  .exceptionHandling()
-                  .and()
-                  .csrf()
-                  .disable();
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/register").permitAll()
+                .antMatchers("/dukaandaar").hasRole("ADMIN")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/signin")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .permitAll()
+                .defaultSuccessUrl("/signed")
+                .failureUrl("/signin/error?true")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/signin")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .and()
+                .exceptionHandling()
+                .and()
+                .csrf()
+                .disable();
 
-            return http.build();
+        return http.build();
     }
 
     @Bean

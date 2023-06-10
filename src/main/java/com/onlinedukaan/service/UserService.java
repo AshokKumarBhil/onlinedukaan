@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -25,10 +26,10 @@ public class UserService {
         return user_repo.findAll();
     }
 
-    public void addUser( User user)  {
+    public void addUser(User user) {
 
-         Role role = role_repo.findByName("USER");
-        if(role == null){
+        Role role = role_repo.findByName("USER");
+        if (role == null) {
             role = checkRoleExist();
         }
         user.setRoles(Arrays.asList(role));
@@ -37,15 +38,15 @@ public class UserService {
     }
 
     private Role checkRoleExist() {
-            Role role = new Role();
-            role.setName("USER");
-            return role_repo.save(role);
-        }
-        public User findUserByEmail(String email)
-        {
-            return user_repo.findUserByEmail(email);
-        }
-
+        Role role = new Role();
+        role.setName("USER");
+        return role_repo.save(role);
     }
+
+    public User findUserByEmail(String email) {
+        return user_repo.findUserByEmail(email);
+    }
+
+}
 
 
