@@ -14,37 +14,49 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    UserRepo user_repo;
+    UserRepo userRepo;
 
     @Autowired
-    RoleRepo role_repo;
+    RoleRepo roleRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
-        return user_repo.findAll();
+        return userRepo.findAll();
     }
 
     public void addUser(User user) {
 
+<<<<<<< HEAD
         Role role = role_repo.findByName("USER");
+=======
+        Role role = roleRepo.findByName("USER");
+>>>>>>> google-auth
         if (role == null) {
             role = checkRoleExist();
         }
         user.setRoles(Arrays.asList(role));
         user.setPassword(passwordEncoder.encode((user.getPassword())));
-        user_repo.save(user);
+        userRepo.save(user);
     }
 
     private Role checkRoleExist() {
         Role role = new Role();
         role.setName("USER");
+<<<<<<< HEAD
         return role_repo.save(role);
     }
 
     public User findUserByEmail(String email) {
         return user_repo.findUserByEmail(email);
+=======
+        return roleRepo.save(role);
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepo.findUserByEmail(email);
+>>>>>>> google-auth
     }
 
 }

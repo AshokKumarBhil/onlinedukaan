@@ -30,7 +30,9 @@ public class UserController {
     }
 
     @GetMapping("/signin")
-    public String signin() {
+    public String signin(Model model) {
+        String uri = "http://localhost:8080/login/oauth2/code/google";
+        model.addAttribute("uri", uri);
         return "signin";
     }
 

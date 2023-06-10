@@ -25,9 +25,6 @@ public class User {
     @NotEmpty(message = "Last name should not be empty")
     @Column(nullable = false)
     private String lastName;
-
-    @Column(nullable = false)
-    @NotEmpty(message = "Password should not be empty")
     private String password;
 
 
