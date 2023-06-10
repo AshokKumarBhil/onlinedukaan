@@ -42,7 +42,6 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register").permitAll()
                 .antMatchers("/", "/register", "/forgotpassword", "/shop/**").permitAll()
                 .antMatchers("/dukaandaar").hasRole("ADMIN")
                 .anyRequest()
