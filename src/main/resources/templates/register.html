@@ -88,13 +88,8 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input class="form-control form-control-lg" id="password" name="password"
-<<<<<<< HEAD
                        placeholder="Password" th:field="*{password}"
                        type="password">
-=======
-                       placeholder="Password" required
-                       th:field="*{password}" type="password">
->>>>>>> google-auth
                 <p class="text-danger" th:errors="*{password}"
                    th:if="${#fields.hasErrors('password')}"></p>
             </div>

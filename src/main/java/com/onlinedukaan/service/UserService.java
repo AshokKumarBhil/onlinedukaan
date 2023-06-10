@@ -28,11 +28,8 @@ public class UserService {
 
     public void addUser(User user) {
 
-<<<<<<< HEAD
-        Role role = role_repo.findByName("USER");
-=======
         Role role = roleRepo.findByName("USER");
->>>>>>> google-auth
+
         if (role == null) {
             role = checkRoleExist();
         }
@@ -44,19 +41,13 @@ public class UserService {
     private Role checkRoleExist() {
         Role role = new Role();
         role.setName("USER");
-<<<<<<< HEAD
-        return role_repo.save(role);
-    }
 
-    public User findUserByEmail(String email) {
-        return user_repo.findUserByEmail(email);
-=======
         return roleRepo.save(role);
     }
 
     public User findUserByEmail(String email) {
         return userRepo.findUserByEmail(email);
->>>>>>> google-auth
+
     }
 
 }

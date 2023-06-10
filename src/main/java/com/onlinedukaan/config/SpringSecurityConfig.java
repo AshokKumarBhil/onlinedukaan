@@ -42,11 +42,8 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-<<<<<<< HEAD
                 .antMatchers("/", "/register").permitAll()
-=======
                 .antMatchers("/", "/register", "/forgotpassword", "/shop/**").permitAll()
->>>>>>> google-auth
                 .antMatchers("/dukaandaar").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -59,15 +56,12 @@ public class SpringSecurityConfig {
                 .defaultSuccessUrl("/signed")
                 .failureUrl("/signin/error?true")
                 .and()
-<<<<<<< HEAD
-=======
                 .oauth2Login()
                 .clientRegistrationRepository(clientRegistrationRepository())
                 .authorizedClientService(authorizedClientService())
                 .loginPage("/signin")
                 .successHandler(googleOauth2SuccessHandler)
                 .and()
->>>>>>> google-auth
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/signin")
