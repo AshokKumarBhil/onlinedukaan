@@ -28,26 +28,26 @@ public class UserService {
 
     public void addUser(User user) {
 
-        Role role = roleRepo.findByName("USER");
+        Role role = roleRepo.findByName("ROLE_USER");
 
         if (role == null) {
             role = checkRoleExist();
         }
         user.setRoles(Arrays.asList(role));
-        user.setPassword(passwordEncoder.encode((user.getPassword())));
+        if (user.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode((user.getPassword())));
+        }
         userRepo.save(user);
     }
 
     private Role checkRoleExist() {
         Role role = new Role();
-        role.setName("USER");
-
+        role.setName("ROLE_USER");
         return roleRepo.save(role);
     }
 
     public User findUserByEmail(String email) {
         return userRepo.findUserByEmail(email);
-
     }
 
 }

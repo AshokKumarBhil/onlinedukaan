@@ -16,7 +16,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long user_id;
+    private long userId;
 
     @Column(nullable = false)
     @NotEmpty(message = "First name should not be empty")

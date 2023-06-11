@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -34,17 +35,7 @@ public class GoogleOauth2SuccessHandler implements AuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         String email = token.getPrincipal().getAttribute("email").toString();
-
-            User user = new User();
-            user.setEmail(email);
-            user.setFirstName(token.getPrincipal().getAttribute("given_name").toString());
-            user.setLastName(token.getPrincipal().getAttribute("family_name").toString());
-            Role role = roleRepo.findByName("USER");
-            List<Role> roles = new ArrayList<>();
-            roles.add(role);
-            user.setRoles(roles);
-            userService.addUser(user);
-            redirectStrategy.sendRedirect(request, response, "/");
+        redirectStrategy.sendRedirect(request, response, "/");
     }
 
     }
