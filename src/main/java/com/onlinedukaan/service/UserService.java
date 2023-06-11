@@ -2,6 +2,7 @@ package com.onlinedukaan.service;
 
 import com.onlinedukaan.model.Role;
 import com.onlinedukaan.model.User;
+import com.onlinedukaan.repo.Provider;
 import com.onlinedukaan.repo.RoleRepo;
 import com.onlinedukaan.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,24 @@ public class UserService {
         return userRepo.findUserByEmail(email);
     }
 
+    public void processOAuthPostLogin(String email, String firstName, String lastName) {
+        User existUser = userRepo.findUserByEmail(email);
+
+        if (existUser == null) {
+            User newUser = new User();
+            newUser.setFirstName(firstName);
+            newUser.setLastName(lastName);
+            newUser.setEmail(email);
+            newUser.setPassword(null);
+            newUser.setProvider(Provider.GOOGLE);
+            Role role = roleRepo.findByName("ROLE_USER");
+            if (role == null) {
+                role = checkRoleExist();
+            }
+            newUser.setRoles(Arrays.asList(role));
+            userRepo.save(newUser);
+        }
+    }
 }
 
 

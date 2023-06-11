@@ -1,5 +1,6 @@
 package com.onlinedukaan.model;
 
+import com.onlinedukaan.repo.Provider;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class User {
+    @Enumerated(EnumType.STRING)
+    Provider provider;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
@@ -28,12 +31,11 @@ public class User {
 
     private String password;
 
-
     @Email
     @Column(unique = true, nullable = false)
     @NotEmpty(message = "email should not be empty")
     private String email;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
     public User(User user) {
@@ -41,6 +43,10 @@ public class User {
         this.lastName = user.getLastName();
         this.email = user.getEmail();
         this.password = user.getPassword();
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
 }
