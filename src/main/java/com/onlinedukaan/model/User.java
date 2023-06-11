@@ -25,6 +25,7 @@ public class User {
     @NotEmpty(message = "Last name should not be empty")
     @Column(nullable = false)
     private String lastName;
+
     private String password;
 
 
