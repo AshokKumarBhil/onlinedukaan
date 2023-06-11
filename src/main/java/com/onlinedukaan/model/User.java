@@ -35,7 +35,7 @@ public class User {
     @Column(unique = true, nullable = false)
     @NotEmpty(message = "email should not be empty")
     private String email;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
     public User(User user) {

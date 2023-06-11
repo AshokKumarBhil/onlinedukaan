@@ -23,7 +23,6 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -42,12 +41,8 @@ public class SpringSecurityConfig {
 
     @Autowired
     UserDetailsService userDetailsService;
-
-
-
     @Autowired
     CustomOAuth2UserService customOAuth2UserService;
-
     @Autowired
     UserService userService;
 
@@ -90,7 +85,7 @@ public class SpringSecurityConfig {
                         String email = Objects.requireNonNull(token.getPrincipal().getAttribute("email")).toString();
                         String firstName = Objects.requireNonNull(token.getPrincipal().getAttribute("given_name")).toString();
                         String lastName=Objects.requireNonNull(token.getPrincipal().getAttribute("family_name")).toString();
-                        userService.processOAuthPostLogin(email,firstName,lastName);
+                            userService.processOAuthPostLogin(email,firstName,lastName);
                             redirectStrategy.sendRedirect(request, response, "/");
                         }
                 })

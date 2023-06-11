@@ -2,7 +2,6 @@ package com.onlinedukaan.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Map;
