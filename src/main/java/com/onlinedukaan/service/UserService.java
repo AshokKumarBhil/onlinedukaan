@@ -2,12 +2,12 @@ package com.onlinedukaan.service;
 
 import com.onlinedukaan.model.Role;
 import com.onlinedukaan.model.User;
+import com.onlinedukaan.repo.Provider;
 import com.onlinedukaan.repo.RoleRepo;
 import com.onlinedukaan.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class UserService {
 
     public void addUser(User user) {
 
-        Role role = roleRepo.findByName("USER");
+        Role role = roleRepo.findByName("ROLE_USER");
 
         if (role == null) {
             role = checkRoleExist();
@@ -40,8 +40,7 @@ public class UserService {
 
     private Role checkRoleExist() {
         Role role = new Role();
-        role.setName("USER");
-
+        role.setName("ROLE_USER");
         return roleRepo.save(role);
     }
 
@@ -50,6 +49,24 @@ public class UserService {
 
     }
 
+    public void processOAuthPostLogin(String email, String firstName, String lastName) {
+        User existUser = userRepo.findUserByEmail(email);
+
+        if (existUser == null) {
+            User newUser = new User();
+            newUser.setFirstName(firstName);
+            newUser.setLastName(lastName);
+            newUser.setEmail(email);
+            newUser.setPassword(null);
+            newUser.setProvider(Provider.GOOGLE);
+            Role role = roleRepo.findByName("ROLE_USER");
+            if (role == null) {
+                role = checkRoleExist();
+            }
+            newUser.setRoles(Arrays.asList(role));
+            userRepo.save(newUser);
+        }
+    }
 }
 
 

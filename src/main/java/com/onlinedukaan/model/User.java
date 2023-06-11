@@ -1,5 +1,6 @@
 package com.onlinedukaan.model;
 
+import com.onlinedukaan.repo.Provider;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,8 @@ public class User {
     private String lastName;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    Provider provider;
 
     @Email
     @Column(unique = true, nullable = false)
@@ -40,6 +43,10 @@ public class User {
         this.lastName = user.getLastName();
         this.email = user.getEmail();
         this.password = user.getPassword();
+    }
+    public void setProvider(Provider provider)
+    {
+        this.provider=provider;
     }
 
 }
