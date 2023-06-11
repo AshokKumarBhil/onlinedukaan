@@ -84,10 +84,10 @@ public class SpringSecurityConfig {
                         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
                         String email = Objects.requireNonNull(token.getPrincipal().getAttribute("email")).toString();
                         String firstName = Objects.requireNonNull(token.getPrincipal().getAttribute("given_name")).toString();
-                        String lastName=Objects.requireNonNull(token.getPrincipal().getAttribute("family_name")).toString();
-                            userService.processOAuthPostLogin(email,firstName,lastName);
-                            redirectStrategy.sendRedirect(request, response, "/");
-                        }
+                        String lastName = Objects.requireNonNull(token.getPrincipal().getAttribute("family_name")).toString();
+                        userService.processOAuthPostLogin(email, firstName, lastName);
+                        redirectStrategy.sendRedirect(request, response, "/");
+                    }
                 })
                 .and()
                 .logout()
@@ -142,8 +142,9 @@ public class SpringSecurityConfig {
         return new InMemoryOAuth2AuthorizedClientService(
                 clientRegistrationRepository());
     }
+
     @Bean
-    public CustomOauth2User customOauth2User(){
+    public CustomOauth2User customOauth2User() {
         return new CustomOauth2User();
     }
 }

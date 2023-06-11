@@ -15,22 +15,18 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class User {
+    @Enumerated(EnumType.STRING)
+    Provider provider;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long user_id;
-
     @Column(nullable = false)
     @NotEmpty(message = "First name should not be empty")
     private String firstName;
-
     @NotEmpty(message = "Last name should not be empty")
     @Column(nullable = false)
     private String lastName;
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    Provider provider;
-
     @Email
     @Column(unique = true, nullable = false)
     @NotEmpty(message = "email should not be empty")
@@ -44,9 +40,9 @@ public class User {
         this.email = user.getEmail();
         this.password = user.getPassword();
     }
-    public void setProvider(Provider provider)
-    {
-        this.provider=provider;
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
 }

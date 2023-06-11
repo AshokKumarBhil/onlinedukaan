@@ -11,7 +11,7 @@ public class CustomOauth2User implements OAuth2User {
     private OAuth2User oauth2User;
 
     public CustomOauth2User(OAuth2User user) {
-        this.oauth2User=user;
+        this.oauth2User = user;
     }
 
     public CustomOauth2User() {
@@ -32,6 +32,7 @@ public class CustomOauth2User implements OAuth2User {
     public String getName() {
         return oauth2User.getAttribute("name");
     }
+
     public String getEmail() {
         return oauth2User.getAttribute("email");
     }
