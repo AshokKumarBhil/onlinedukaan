@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -31,8 +30,12 @@ public class UserController {
 
     @GetMapping("/signin")
     public String signin(Model model) {
-        String uri = "http://localhost:8080/login/oauth2/code/google";
-        model.addAttribute("uri", uri);
+        return "signin";
+    }
+    @GetMapping("/signin/error?true")
+    public String errorSignIn(@PathVariable Boolean param, Model model)
+    {
+        model.addAttribute("param",param);
         return "signin";
     }
 
