@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
     @Autowired
-    UserService user_service;
+    UserService userService;
 
     @GetMapping("/")
     public String home() {
@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String postAddUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
-        User existingUser = user_service.findUserByEmail(user.getEmail());
+        User existingUser = userService.findUserByEmail(user.getEmail());
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
@@ -47,7 +47,7 @@ public class UserController {
             model.addAttribute("user", user);
             return "/register";
         }
-        user_service.addUser(user);
+        userService.addUser(user);
         return "customeradded";
     }
 
