@@ -68,7 +68,7 @@ public class SpringSecurityConfig {
                 .passwordParameter("password")
                 .permitAll()
                 .defaultSuccessUrl("/signed")
-                .failureUrl("/signin/error?true")
+                .failureUrl("/signin?error=true")
                 .and()
                 .oauth2Login()
                 .clientRegistrationRepository(clientRegistrationRepository())

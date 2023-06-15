@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
@@ -29,16 +30,13 @@ public class UserController {
     }
 
     @GetMapping("/signin")
-    public String signin(Model model) {
-        return "signin";
-    }
-    @GetMapping("/signin/error?true")
-    public String errorSignIn(@PathVariable Boolean param, Model model)
-    {
-        model.addAttribute("param",param);
-        return "signin";
-    }
+    public String signin(@RequestParam(value = "error",defaultValue = "false") boolean loginError,Model model) {
+        if(loginError)
+        {
 
+        }
+        return "signin";
+    }
     @PostMapping("/register")
     public String postAddUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         User existingUser = userService.findUserByEmail(user.getEmail());
@@ -55,7 +53,10 @@ public class UserController {
     }
 
     @GetMapping("/signed")
-    public String postSignin() {
+    public String postSignin(HttpServletRequest request,Model model) {
+        Principal principal = request.getUserPrincipal();
+        String name = principal.getName();
+        model.addAttribute("name",name);
         return "welcome";
     }
 }
