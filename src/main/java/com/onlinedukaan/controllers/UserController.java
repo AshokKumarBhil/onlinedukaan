@@ -27,7 +27,7 @@ public class UserController {
         return "register";
     }
     @GetMapping("/signin")
-    public String signin(@RequestParam(value = "error",defaultValue = "false") boolean loginError,Model model) {
+    public String signin(@RequestParam(value = "error",defaultValue = "false")boolean loginError,Model model) {
         if(loginError)
         {
           model.addAttribute("error",loginError);
@@ -49,17 +49,11 @@ public class UserController {
         userService.addUser(user);
         return "signin";
     }
-
     @GetMapping("/signed")
     public String postSignin(HttpServletRequest request,Model model) {
         Principal principal = request.getUserPrincipal();
         String name = principal.getName();
         model.addAttribute("name",name);
         return "welcome";
-    }
-    @GetMapping("/logout")
-    public String logout()
-    {
-        return "signin";
     }
 }
