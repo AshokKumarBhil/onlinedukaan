@@ -91,7 +91,6 @@ public class SpringSecurityConfig {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/signin")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()

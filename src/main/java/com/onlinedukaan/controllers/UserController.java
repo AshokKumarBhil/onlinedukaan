@@ -22,18 +22,17 @@ public class UserController {
     public String home() {
         return "index";
     }
-
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
-
     @GetMapping("/signin")
     public String signin(@RequestParam(value = "error",defaultValue = "false") boolean loginError,Model model) {
         if(loginError)
         {
-
+          model.addAttribute("error",loginError);
+          return "signin";
         }
         return "signin";
     }
@@ -49,7 +48,7 @@ public class UserController {
             return "/register";
         }
         userService.addUser(user);
-        return "customeradded";
+        return "signin";
     }
 
     @GetMapping("/signed")
@@ -58,5 +57,10 @@ public class UserController {
         String name = principal.getName();
         model.addAttribute("name",name);
         return "welcome";
+    }
+    @GetMapping("/logout")
+    public String logout()
+    {
+        return "signin";
     }
 }
