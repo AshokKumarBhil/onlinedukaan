@@ -12,16 +12,5 @@ public class Dukaandaar {
     public String admin() {
         return "adminpage";
     }
-    @GetMapping("/dukaandaar/products")
-    public String getProduct()
-    {
-        return "products";
-    }
-    @GetMapping("/dukaandaar/products/add")
-    public String addProduct(Model model)
-    {
-        model.addAttribute("product",new Product());
-        return "addproduct";
-    }
 
 }
