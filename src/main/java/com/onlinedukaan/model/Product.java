@@ -1,5 +1,6 @@
 package com.onlinedukaan.model;
 
+import com.onlinedukaan.repo.Category;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,8 +18,10 @@ public class Product {
     @NotBlank
     private float price;
     @NotBlank
-    private String category;
-    private String pictureUrl;
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    private String imageUrl;
 
 
 }
