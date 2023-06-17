@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -16,7 +17,7 @@ public class Product {
     @NotBlank
     private String productName;
 
-    @NotBlank
+    @NotNull
     private int price;
 
     @NotBlank

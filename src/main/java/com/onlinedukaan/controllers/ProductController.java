@@ -38,9 +38,8 @@ public class ProductController {
    {
        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
        product.setImageUrl(fileName);
-       System.out.println(product);
        Product savedProduct = productRepo.save(product);
-       String uploadDir = "productImages/" + savedProduct.getProductName();
+       String uploadDir = "/src/java/main/resources/static/productImages/"+savedProduct.getProductName();
        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
        return "/index";
    }
