@@ -6,10 +6,7 @@ import com.onlinedukaan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,14 +17,14 @@ import java.util.List;
 
 @Controller
 public class ProductController {
-    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/images/productImages";
+    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/images";
     @Autowired
     ProductRepo productRepo;
 
     @Autowired
     ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping("/getProducts")
     public String getProduct(Model model)
     {
         List<Product> productList = productService.getAllProduct();
@@ -43,13 +40,28 @@ public class ProductController {
    @PostMapping("/products/add")
     public String addProduct(@ModelAttribute("product")Product product, @RequestParam("image") MultipartFile multipartFile)throws IOException
    {
+       String fileName = new String();
        if(!multipartFile.isEmpty())
        {
-           String fileName = multipartFile.getOriginalFilename();
+           fileName = multipartFile.getOriginalFilename();
            Path fileNameAndPath = Paths.get(uploadDir,fileName);
            Files.write(fileNameAndPath,multipartFile.getBytes());
        }
+         product.setImageUrl(fileName);
          Product savedProduct = productRepo.save(product);
        return "/index";
    }
+   @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable long id){
+      productService.deleteProduct(id);
+      return "redirect:/getProducts";
+   }
+
+    @GetMapping("/products/update/{id}")
+    public String updateProduct(@PathVariable long id , Model model){
+        Product product = productService.getProduct(id);
+        model.addAttribute("product",product);
+        return "addproduct";
+    }
+
 }

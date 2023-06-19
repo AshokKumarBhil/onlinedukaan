@@ -25,4 +25,16 @@ public class ProductService {
     public List<Product> getStationary() {
         return productList;
     }
+
+    public void deleteProduct(long id) {
+        productRepo.deleteById(id);
+    }
+
+    public void updateProduct(long id) {
+
+    }
+
+    public Product getProduct(long id){
+        return productRepo.getById(id);
+    }
 }

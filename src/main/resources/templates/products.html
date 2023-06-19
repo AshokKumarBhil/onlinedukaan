@@ -75,10 +75,11 @@
       <th scope="row" th:text="${iStat.index + 1}">1</th>
       <td th:text="${product.productName}"></td>
       <td th:text="${product.category}"></td>
-      <td><img src="" height="100px" width="100px"  th:src="@{${'/productImages/'+product.productName}}"></td>
+<!--      <td><img height="100px" width="100px"  th:src="@{${'/productImages/'+product.imageUrl}}" alt=""></td>-->
+      <td><img th:src="@{${'/images/'+product.imageUrl}}"  width="100px" height="100px"  alt=""/></td>
 
-<!--      <td><a href="" th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a></td>-->
-<!--      <td><a href="" th:href="@{/admin/product/update/{id}(id=${product.id})}" class="btn btn-warning">Update</a></td>-->
+      <td><a href="" th:href="@{/products/delete/{id}(id=${product.productId})}" class="btn btn-danger">Delete</a></td>
+      <td><a href="" th:href="@{/products/update/{id}(id=${product.productId})}" class="btn btn-warning">Update</a></td>
 
     </tr>
     </tbody>

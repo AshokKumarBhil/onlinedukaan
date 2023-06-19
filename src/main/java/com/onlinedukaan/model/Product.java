@@ -23,6 +23,8 @@ public class Product {
     @NotBlank
     private String category;
 
+    private String imageUrl;
+
 
 
 }

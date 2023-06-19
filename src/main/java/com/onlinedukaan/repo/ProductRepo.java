@@ -12,5 +12,13 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     List<Product> findAll();
 
     @Override
+    Product getById(Long aLong);
+
+    @Override
     List<Product> findAllById(Iterable<Long> longs);
+
+    @Override
+    void deleteById(Long aLong);
+
+
 }
