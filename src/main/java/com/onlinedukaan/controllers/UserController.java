@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -21,20 +25,22 @@ public class UserController {
     public String home() {
         return "index";
     }
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
+
     @GetMapping("/signin")
-    public String signin(@RequestParam(value = "error",defaultValue = "false")boolean loginError,Model model) {
-        if(loginError)
-        {
-          model.addAttribute("error",loginError);
-          return "signin";
+    public String signin(@RequestParam(value = "error", defaultValue = "false") boolean loginError, Model model) {
+        if (loginError) {
+            model.addAttribute("error", loginError);
+            return "signin";
         }
         return "signin";
     }
+
     @PostMapping("/register")
     public String postAddUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         User existingUser = userService.findUserByEmail(user.getEmail());
@@ -49,11 +55,12 @@ public class UserController {
         userService.addUser(user);
         return "signin";
     }
+
     @GetMapping("/signed")
-    public String postSignin(HttpServletRequest request,Model model) {
+    public String postSignin(HttpServletRequest request, Model model) {
         Principal principal = request.getUserPrincipal();
         String name = principal.getName();
-        model.addAttribute("name",name);
+        model.addAttribute("name", name);
         return "welcome";
     }
 }

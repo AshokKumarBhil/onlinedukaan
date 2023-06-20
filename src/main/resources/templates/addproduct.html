@@ -15,7 +15,8 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img th:src="@{/images/Online-Dukaan.png}"   width="80" height="40" class="d-inline-block align-top" alt="" src=""/>
+            <img alt="" class="d-inline-block align-top" height="40" src="" th:src="@{/images/Online-Dukaan.png}"
+                 width="80"/>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -56,48 +57,50 @@
 </nav>
 <div class="container">
     <h3>Add a new Product</h3>
-    <form th:action="@{/products/add}" method="post" th:object="${product}" enctype="multipart/form-data">
+    <form enctype="multipart/form-data" method="post" th:action="@{/products/add}" th:object="${product}">
         <div class="row">
             <div class="col-sm-5">
 
-                <input type="hidden" name="id" th:field="*{productId}">
+                <input name="id" th:field="*{productId}" type="hidden">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" required th:field="*{productName}" name="name" id="name"
-                           placeholder="Enter name">
+                    <input class="form-control" id="name" name="name" placeholder="Enter name" required th:field="*{productName}"
+                           type="text">
 
                 </div>
                 <div class="form-group">
                     <label for="category">Select Category</label>
-                    <select class="form-control" th:field="*{category}" id="category" name="category">
+                    <select class="form-control" id="category" name="category" th:field="*{category}">
                         <option
-                                th:value="stationary"
                                 th:text="stationary"
+                                th:value="stationary"
                         >
                         <option
-                            th:value="grocery"
-                            th:text="grocery"
-                            >
+                                th:text="grocery"
+                                th:value="grocery"
+                        >
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" required th:field="*{price}" name="price" id="price"
-                           placeholder="Price">
+                    <input class="form-control" id="price" name="price" placeholder="Price" required th:field="*{price}"
+                           type="number">
                 </div>
 
             </div>
             <div class="col-sm-5">
                 <p>Product Image</p>
                 <div class="custom-file">
-                    <input type="file"  class="custom-file-input" name="image" accept="image/jpeg, image/png"  id="productImage"/>
-<!--                    <label class="custom-file-label" for="productImage">Choose file</label>-->
+                    <input accept="image/jpeg, image/png" class="custom-file-input" id="productImage" name="image"
+                           type="file"/>
+                    <!--                    <label class="custom-file-label" for="productImage">Choose file</label>-->
                 </div>
                 <div class="form-group">
-                    <img src="#" id="imgPreview" height="100px" width="100px" th:src="@{${'/images/' + product.imageUrl}}" style="margin-top: 20px" alt=" ">
+                    <img alt=" " height="100px" id="imgPreview" src="#"
+                         style="margin-top: 20px" th:src="@{${'/images/' + product.imageUrl}}" width="100px">
                 </div>
-                <input type="hidden" name="imgName" th:value="${product.imageUrl}">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <input name="imgName" th:value="${product.imageUrl}" type="hidden">
+                <button class="btn btn-primary" type="submit">Submit</button>
             </div>
         </div>
     </form>
@@ -125,6 +128,7 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+
 </script>
 </body>
 </html>

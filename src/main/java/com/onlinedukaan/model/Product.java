@@ -26,5 +26,4 @@ public class Product {
     private String imageUrl;
 
 
-
 }

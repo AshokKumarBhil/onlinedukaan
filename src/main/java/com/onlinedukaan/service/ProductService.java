@@ -13,7 +13,7 @@ public class ProductService {
     ProductRepo productRepo;
     List<Product> productList;
 
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProduct() {
         productList = productRepo.findAll();
         return productList;
     }
@@ -34,7 +34,7 @@ public class ProductService {
 
     }
 
-    public Product getProduct(long id){
+    public Product getProduct(long id) {
         return productRepo.getById(id);
     }
 }
