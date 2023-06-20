@@ -41,12 +41,14 @@ public class SpringSecurityConfig {
 
     @Autowired
     UserDetailsService userDetailsService;
+
     @Autowired
     CustomOAuth2UserService customOAuth2UserService;
+
     @Autowired
     UserService userService;
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -72,8 +74,6 @@ public class SpringSecurityConfig {
                 .failureUrl("/signin?error=true")
                 .and()
                 .oauth2Login()
-                .clientRegistrationRepository(clientRegistrationRepository())
-                .authorizedClientService(authorizedClientService())
                 .loginPage("/signin")
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
@@ -100,7 +100,6 @@ public class SpringSecurityConfig {
                 .and()
                 .csrf()
                 .disable();
-
         return http.build();
     }
 
@@ -113,36 +112,6 @@ public class SpringSecurityConfig {
                 .and()
                 .build();
     }
-
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository() {
-        return new InMemoryClientRegistrationRepository(this.googleClientRegistration());
-    }
-
-    private ClientRegistration googleClientRegistration() {
-        return ClientRegistration.withRegistrationId("google")
-                .clientId("381037347638-3m218q5nl1j3ac4atrau0gtvastua97p.apps.googleusercontent.com")
-                .clientSecret("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")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/oauth2/code/google")
-                .scope("openid", "profile", "email", "address", "phone")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
-                .clientName("Google")
-                .build();
-    }
-
-    @Bean
-    public OAuth2AuthorizedClientService authorizedClientService() {
-
-        return new InMemoryOAuth2AuthorizedClientService(
-                clientRegistrationRepository());
-    }
-
     @Bean
     public CustomOauth2User customOauth2User() {
         return new CustomOauth2User();
