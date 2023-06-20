@@ -38,7 +38,7 @@ public class ProductController {
         return "addproduct";
     }
    @PostMapping("/products/add")
-    public String addProduct(@ModelAttribute("product")Product product, @RequestParam("image") MultipartFile multipartFile)throws IOException
+    public String addProduct(@ModelAttribute("product")Product product, @RequestParam("image") MultipartFile multipartFile , @RequestParam("imgName")String imgUrl)throws IOException
    {
        String fileName = new String();
        if(!multipartFile.isEmpty())
@@ -46,10 +46,13 @@ public class ProductController {
            fileName = multipartFile.getOriginalFilename();
            Path fileNameAndPath = Paths.get(uploadDir,fileName);
            Files.write(fileNameAndPath,multipartFile.getBytes());
+           product.setImageUrl(fileName);
+           productRepo.save(product);
+           return "redirect:/getProducts";
        }
-         product.setImageUrl(fileName);
-         Product savedProduct = productRepo.save(product);
-       return "/index";
+       product.setImageUrl(imgUrl);
+       productRepo.save(product);
+       return "redirect:/getProducts";
    }
    @GetMapping("/products/delete/{id}")
     public String deleteProduct(@PathVariable long id){
@@ -60,6 +63,12 @@ public class ProductController {
     @GetMapping("/products/update/{id}")
     public String updateProduct(@PathVariable long id , Model model){
         Product product = productService.getProduct(id);
+//        Product product = new Product();
+//        product.setProductId(oldProduct.getProductId());
+//        product.setProductName(oldProduct.getProductName());
+//        product.setPrice(oldProduct.getPrice());
+//        product.setImageUrl(oldProduct.getImageUrl());
+//        product.setCategory(oldProduct.getCategory());
         model.addAttribute("product",product);
         return "addproduct";
     }
