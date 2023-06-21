@@ -1,5 +1,6 @@
 package com.onlinedukaan.controllers;
 
+import com.onlinedukaan.global.GlobalData;
 import com.onlinedukaan.model.Product;
 import com.onlinedukaan.repo.ProductRepo;
 import com.onlinedukaan.service.ProductService;
@@ -34,6 +35,7 @@ public class ProductController {
     @GetMapping("/products/add")
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
+        model.addAttribute("cart", GlobalData.cart);
         return "addproduct";
     }
 
@@ -63,6 +65,7 @@ public class ProductController {
     public String updateProduct(@PathVariable long id, Model model) {
         Product product = productService.getProduct(id);
         model.addAttribute("product", product);
+        model.addAttribute("cartCount", GlobalData.cart.size());
         return "addproduct";
     }
 

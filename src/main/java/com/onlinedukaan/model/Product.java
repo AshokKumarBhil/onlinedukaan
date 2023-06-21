@@ -1,6 +1,7 @@
 package com.onlinedukaan.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

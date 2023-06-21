@@ -1,5 +1,6 @@
 package com.onlinedukaan.controllers;
 
+import com.onlinedukaan.global.GlobalData;
 import com.onlinedukaan.model.Product;
 import com.onlinedukaan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,14 @@ public class HomeController {
     {
         List<Product> products = productService.getAllProduct();
         model.addAttribute("products",products);
+        model.addAttribute("cartCount", GlobalData.cart.size());
         return "shop";
     }
     @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(@PathVariable long id,Model model){
         Product product = productService.getProduct(id);
         model.addAttribute("product",product);
+        model.addAttribute("cartCount", GlobalData.cart.size());
         return "viewProduct";
     }
 }
