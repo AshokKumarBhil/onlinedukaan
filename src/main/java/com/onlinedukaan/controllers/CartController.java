@@ -33,4 +33,10 @@ public class CartController {
         model.addAttribute("cart", GlobalData.cart);
         return "cart";
     }
+    @GetMapping("/cart/removeItem/{id}")
+    public String removeItem(@PathVariable int id , Model model)
+    {
+        GlobalData.cart.remove(id);
+        return "redirect:/cart";
+    }
 }

@@ -1,5 +1,6 @@
 package com.onlinedukaan.controllers;
 
+import com.onlinedukaan.global.GlobalData;
 import com.onlinedukaan.model.User;
 import com.onlinedukaan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
-    public String home() {
-        return "index";
-    }
+
 
     @GetMapping("/register")
     public String register(Model model) {

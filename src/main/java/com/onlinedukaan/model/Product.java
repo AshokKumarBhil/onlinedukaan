@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "products")
 @Data
+@Proxy(lazy = false)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
