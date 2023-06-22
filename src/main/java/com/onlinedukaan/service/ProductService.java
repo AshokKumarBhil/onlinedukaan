@@ -37,4 +37,14 @@ public class ProductService {
     public Product getProduct(long id) {
         return productRepo.getById(id);
     }
+
+    public List<Product> getGroceryProducts()
+    {
+        return productRepo.getGroceryProducts();
+    }
+
+    public List<Product> getStationaryProducts()
+    {
+        return productRepo.getStationaryProducts();
+    }
 }

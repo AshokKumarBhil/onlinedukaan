@@ -16,7 +16,7 @@ public class CartController {
     ProductService productService;
 
     @GetMapping("/addToCart/{id}")
-    public String addToCart(@PathVariable long id,Model model) {
+    public String addToCart(@PathVariable long id, Model model) {
         GlobalData.cart.add(productService.getProduct(id));
         return "redirect:/shop";
     }
@@ -33,9 +33,9 @@ public class CartController {
         model.addAttribute("cart", GlobalData.cart);
         return "cart";
     }
+
     @GetMapping("/cart/removeItem/{id}")
-    public String removeItem(@PathVariable int id , Model model)
-    {
+    public String removeItem(@PathVariable int id, Model model) {
         GlobalData.cart.remove(id);
         return "redirect:/cart";
     }

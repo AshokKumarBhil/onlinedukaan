@@ -67,7 +67,8 @@
                 <input name="id" th:field="*{productId}" type="hidden">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input class="form-control" id="name" name="name" placeholder="Enter name" required th:field="*{productName}"
+                    <input class="form-control" id="name" name="name" placeholder="Enter name" required
+                           th:field="*{productName}"
                            type="text">
 
                 </div>
@@ -131,6 +132,7 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+
 
 </script>
 </body>

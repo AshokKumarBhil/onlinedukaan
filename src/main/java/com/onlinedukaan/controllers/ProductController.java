@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,8 +27,22 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/getProducts")
-    public String getProduct(Model model) {
-        List<Product> productList = productService.getAllProduct();
+    public String getProduct(Model model, @PathParam(value = "category")String category) {
+        List<Product> productList;
+        if(category != null && category.equals("stationary"))
+        {
+            productList = productService.getStationaryProducts();
+            model.addAttribute("products",productList);
+            return "products";
+        }
+        if(category != null && category.equals("grocery"))
+        {
+            productList = productService.getGroceryProducts();
+            model.addAttribute("products",productList);
+            return "products";
+        }
+
+         productList = productService.getAllProduct();
         model.addAttribute("products", productList);
         return "products";
     }

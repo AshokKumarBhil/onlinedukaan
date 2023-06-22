@@ -51,7 +51,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register", "/images/**", "/productImages/**", "/forgotpassword","/addToCart/**","/cart/**","/shop/**").permitAll()
+                .antMatchers("/", "/register", "/images/**", "/productImages/**", "/forgotpassword", "/addToCart/**", "/cart/**", "/shop/**").permitAll()
                 .antMatchers("/dukaandaar/**").hasRole("ADMIN")
                 .antMatchers("/getProducts/**").hasRole("ADMIN")
                 .anyRequest()
@@ -104,6 +104,7 @@ public class SpringSecurityConfig {
                 .and()
                 .build();
     }
+
     @Bean
     public CustomOauth2User customOauth2User() {
         return new CustomOauth2User();
