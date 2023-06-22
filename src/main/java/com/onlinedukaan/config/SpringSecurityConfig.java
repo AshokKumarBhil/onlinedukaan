@@ -51,7 +51,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register", "/images/**", "/productImages/**", "/forgotpassword", "/addToCart/**", "/cart/**", "/shop/**").permitAll()
+                .antMatchers("/", "/register/**", "/images/**", "/productImages/**","/checkout/**", "/forgotpassword", "/addToCart/**", "/cart/**", "/shop/**").permitAll()
                 .antMatchers("/dukaandaar/**").hasRole("ADMIN")
                 .antMatchers("/getProducts/**").hasRole("ADMIN")
                 .anyRequest()
@@ -62,7 +62,7 @@ public class SpringSecurityConfig {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll()
-                .defaultSuccessUrl("/signed")
+                .defaultSuccessUrl("/")
                 .failureUrl("/signin?error=true")
                 .and()
                 .oauth2Login()
@@ -96,7 +96,7 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService)
+    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService ,HttpServletRequest request)
             throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService)

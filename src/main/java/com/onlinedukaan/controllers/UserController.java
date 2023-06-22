@@ -11,16 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
-
-
 @Controller
 public class UserController {
     @Autowired
     UserService userService;
-
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -38,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String postAddUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+    public String postAddUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,HttpServletRequest request) throws ServletException {
         User existingUser = userService.findUserByEmail(user.getEmail());
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
@@ -49,14 +46,6 @@ public class UserController {
             return "/register";
         }
         userService.addUser(user);
-        return "signin";
-    }
-
-    @GetMapping("/signed")
-    public String postSignin(HttpServletRequest request, Model model) {
-        Principal principal = request.getUserPrincipal();
-        String name = principal.getName();
-        model.addAttribute("name", name);
-        return "welcome";
+        return "redirect:/";
     }
 }

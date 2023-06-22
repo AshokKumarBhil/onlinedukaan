@@ -11,4 +11,11 @@ public class GlobalData {
     static {
         cart = new ArrayList<Product>();
     }
+    public static int totalPrice(){
+        int total = 0;
+        for (Product product : GlobalData.cart) {
+            total = total + product.getPrice();
+        }
+        return total;
+    }
 }
