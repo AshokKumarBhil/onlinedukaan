@@ -2,6 +2,7 @@ package com.onlinedukaan.config;
 
 import com.onlinedukaan.model.CustomOauth2User;
 import com.onlinedukaan.service.CustomOAuth2UserService;
+import com.onlinedukaan.service.MyUserDetailsService;
 import com.onlinedukaan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +41,9 @@ public class SpringSecurityConfig {
     @Autowired
     UserService userService;
 
+    @Autowired
+    MyUserDetailsService myUserDetailsService;
+
     RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Bean
@@ -68,7 +72,6 @@ public class SpringSecurityConfig {
                 .oauth2Login()
                 .loginPage("/signin")
                 .userInfoEndpoint()
-                .userService(customOAuth2UserService)
                 .and()
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
@@ -99,7 +102,7 @@ public class SpringSecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService ,HttpServletRequest request)
             throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userDetailsService)
+                .userDetailsService(myUserDetailsService)
                 .passwordEncoder(bCryptPasswordEncoder)
                 .and()
                 .build();
