@@ -1,6 +1,6 @@
 package com.onlinedukaan.service;
 
-import com.onlinedukaan.model.CustomOauth2User;
+import com.onlinedukaan.model.CustomOAuth2User;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -12,6 +12,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User user = super.loadUser(userRequest);
-        return new CustomOauth2User(user);
+        return new CustomOAuth2User(user);
     }
+
+
 }

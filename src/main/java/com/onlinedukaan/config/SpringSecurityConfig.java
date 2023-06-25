@@ -1,6 +1,6 @@
 package com.onlinedukaan.config;
 
-import com.onlinedukaan.model.CustomOauth2User;
+import com.onlinedukaan.model.CustomOAuth2User;
 import com.onlinedukaan.service.CustomOAuth2UserService;
 import com.onlinedukaan.service.MyUserDetailsService;
 import com.onlinedukaan.service.UserService;
@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,14 +25,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
-
-    @Autowired
-    UserDetailsService userDetailsService;
 
     @Autowired
     CustomOAuth2UserService customOAuth2UserService;
@@ -72,15 +67,15 @@ public class SpringSecurityConfig {
                 .oauth2Login()
                 .loginPage("/signin")
                 .userInfoEndpoint()
+                .userService(customOAuth2UserService)
                 .and()
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
-                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                        OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
-                        String email = Objects.requireNonNull(token.getPrincipal().getAttribute("email")).toString();
-                        String firstName = Objects.requireNonNull(token.getPrincipal().getAttribute("given_name")).toString();
-                        String lastName = Objects.requireNonNull(token.getPrincipal().getAttribute("family_name")).toString();
-                        userService.processOAuthPostLogin(email, firstName, lastName);
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                        Authentication authentication) throws IOException, ServletException
+                    {
+                        CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+                        userService.processOAuthPostLogin(oauthUser.getEmail(),oauthUser.getAttribute("given_name"),oauthUser.getAttribute("family_name"));
                         redirectStrategy.sendRedirect(request, response, "/");
                     }
                 })
@@ -108,8 +103,4 @@ public class SpringSecurityConfig {
                 .build();
     }
 
-    @Bean
-    public CustomOauth2User customOauth2User() {
-        return new CustomOauth2User();
-    }
 }

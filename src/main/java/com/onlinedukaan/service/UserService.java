@@ -38,6 +38,7 @@ public class UserService {
         if (user.getPassword() != null) {
             user.setPassword(passwordEncoder.encode((user.getPassword())));
         }
+        user.setProvider(Provider.LOCAL);
         userRepo.save(user);
     }
 
@@ -48,11 +49,11 @@ public class UserService {
     }
 
     public User findUserByEmail(String email) {
-        return userRepo.findUserByEmail(email);
+        return userRepo.findByEmail(email);
     }
 
     public void processOAuthPostLogin(String email, String firstName, String lastName) {
-        User existUser = userRepo.findUserByEmail(email);
+        User existUser = userRepo.findByEmail(email);
 
         if (existUser == null) {
             User newUser = new User();

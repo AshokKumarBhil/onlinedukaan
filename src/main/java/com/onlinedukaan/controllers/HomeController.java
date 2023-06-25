@@ -23,9 +23,9 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("cartCount", GlobalData.cart.size());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        System.out.println(currentPrincipalName);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String currentPrincipalName = authentication.getName();
+//        System.out.println(currentPrincipalName);
         return "index";
     }
 
