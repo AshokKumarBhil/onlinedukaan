@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "products")
 @Data
 @Proxy(lazy = false)
 public class Product {
@@ -26,6 +25,10 @@ public class Product {
     private String category;
 
     private String imageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id" , nullable = false)
+    private Cart cart;
 
 
 }

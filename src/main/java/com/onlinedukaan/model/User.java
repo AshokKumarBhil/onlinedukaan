@@ -17,6 +17,7 @@ import java.util.List;
 public class User {
     @Enumerated(EnumType.STRING)
     Provider provider;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
@@ -35,8 +36,16 @@ public class User {
     @Column(unique = true, nullable = false)
     @NotEmpty(message = "email should not be empty")
     private String email;
+
+    @Column(nullable = false)
+    private int wallet=0;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cart_id",referencedColumnName = "cart_id")
+    private Cart cart;
 
     public User(User user) {
         this.firstName = user.getFirstName();
