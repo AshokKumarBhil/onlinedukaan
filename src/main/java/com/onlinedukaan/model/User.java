@@ -43,7 +43,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Role> roles = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cart_id",referencedColumnName = "cart_id")
     private Cart cart;
 

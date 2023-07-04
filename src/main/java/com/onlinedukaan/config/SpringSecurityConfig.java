@@ -52,7 +52,6 @@ public class SpringSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/", "/register/**", "/images/**", "/productImages/**","/checkout/**", "/forgotpassword", "/addToCart/**", "/cart/**", "/shop/**").permitAll()
                 .antMatchers("/dukaandaar/**").hasRole("ADMIN")
-                .antMatchers("/getProducts/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

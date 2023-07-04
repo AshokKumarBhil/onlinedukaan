@@ -17,6 +17,6 @@ public class Cart {
     @OneToOne(mappedBy = "cart")
     private User user;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE)
     private List<Product> productList;
 }
