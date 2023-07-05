@@ -15,8 +15,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class User {
-    @Enumerated(EnumType.STRING)
-    Provider provider;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,12 +38,14 @@ public class User {
     @Column(nullable = false)
     private int wallet=0;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @Enumerated(EnumType.STRING)
+    Provider provider;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "cart_id",referencedColumnName = "cart_id")
-    private Cart cart;
+    @OneToOne
+    Cart cart;
 
     public User(User user) {
         this.firstName = user.getFirstName();

@@ -3,6 +3,7 @@ package com.onlinedukaan.controllers;
 import com.onlinedukaan.global.GlobalData;
 import com.onlinedukaan.model.Product;
 import com.onlinedukaan.service.ProductService;
+import com.onlinedukaan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,28 +16,24 @@ public class CartController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/addToCart/{id}")
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/addtocart/{id}")
     public String addToCart(@PathVariable long id, Model model) {
-        GlobalData.cart.add(productService.getProduct(id));
+
         return "redirect:/shop";
     }
 
-    @GetMapping("/cart")
+    @GetMapping("/viewcart")
     public String getCart(Model model) {
-        int cartCount = GlobalData.cart.size();
-        int total = 0;
-        for (Product product : GlobalData.cart) {
-            total = total + product.getPrice();
-        }
-        model.addAttribute("total", total);
-        model.addAttribute("cartCount", cartCount);
-        model.addAttribute("cart", GlobalData.cart);
+
         return "cart";
     }
 
-    @GetMapping("/cart/removeItem/{id}")
+    @GetMapping("/cart/removeproduct/{id}")
     public String removeItem(@PathVariable int id, Model model) {
-        GlobalData.cart.remove(id);
-        return "redirect:/cart";
+
+        return "redirect:/viewcart";
     }
 }

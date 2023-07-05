@@ -26,9 +26,4 @@ public class Product {
 
     private String imageUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id" , nullable = false)
-    private Cart cart;
-
-
 }

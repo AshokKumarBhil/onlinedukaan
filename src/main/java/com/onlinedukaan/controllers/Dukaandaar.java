@@ -2,7 +2,7 @@ package com.onlinedukaan.controllers;
 
 import com.onlinedukaan.global.GlobalData;
 import com.onlinedukaan.model.Product;
-import com.onlinedukaan.repository.ProductRepo;
+import com.onlinedukaan.repository.ProductRepository;
 import com.onlinedukaan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class Dukaandaar {
     public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/images";
 
     @Autowired
-    ProductRepo productRepo;
+    ProductRepository productRepository;
 
     @Autowired
     ProductService productService;
@@ -33,7 +33,7 @@ public class Dukaandaar {
         return "adminpage";
     }
 
-    @GetMapping("dukaandaar/products")
+    @GetMapping("/dukaandaar/products")
     public String getProduct(Model model, @PathParam(value = "category") String category) {
         List<Product> productList;
         if (category != null && category.equals("stationary")) {
@@ -55,7 +55,6 @@ public class Dukaandaar {
     @GetMapping("dukaandaar/products/add")
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
-        model.addAttribute("cart", GlobalData.cart);
         return "addproduct";
     }
 
@@ -67,25 +66,24 @@ public class Dukaandaar {
             Path fileNameAndPath = Paths.get(uploadDir, fileName);
             Files.write(fileNameAndPath, multipartFile.getBytes());
             product.setImageUrl(fileName);
-            productRepo.save(product);
-            return "redirect:/getProducts";
+            productRepository.save(product);
+            return "redirect:/dukaandaar/products";
         }
         product.setImageUrl(imgUrl);
-        productRepo.save(product);
-        return "redirect:/getProducts";
+        productRepository.save(product);
+        return "redirect:/dukaandaar/products";
     }
 
     @GetMapping("dukaandaar/products/delete/{id}")
     public String deleteProduct(@PathVariable long id) {
         productService.deleteProduct(id);
-        return "redirect:/getProducts";
+        return "redirect:/dukaandaar/products";
     }
 
     @GetMapping("dukaandaar/products/update/{id}")
     public String updateProduct(@PathVariable long id, Model model) {
         Product product = productService.getProduct(id);
         model.addAttribute("product", product);
-        model.addAttribute("cartCount", GlobalData.cart.size());
         return "addproduct";
     }
 

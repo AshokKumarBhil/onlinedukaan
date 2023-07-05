@@ -83,10 +83,10 @@
             <!--      <td><img height="100px" width="100px"  th:src="@{${'/productImages/'+product.imageUrl}}" alt=""></td>-->
             <td><img alt="" height="100px" th:src="@{${'/images/'+product.imageUrl}}" width="100px"/></td>
 
-            <td><a class="btn btn-danger" href="" th:href="@{dukaandaar/products/delete/{id}(id=${product.productId})}">Delete</a>
+            <td><a class="btn btn-danger" href="" th:href="@{/dukaandaar/products/delete/{id}(id=${product.productId})}">Delete</a>
             </td>
             <td><a class="btn btn-warning" href=""
-                   th:href="@{dukaandaar/products/update/{id}(id=${product.productId})}">Update</a></td>
+                   th:href="@{/dukaandaar/products/update/{id}(id=${product.productId})}">Update</a></td>
 
         </tr>
         </tbody>

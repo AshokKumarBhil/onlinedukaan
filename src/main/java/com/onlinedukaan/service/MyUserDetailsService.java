@@ -2,7 +2,7 @@ package com.onlinedukaan.service;
 
 import com.onlinedukaan.model.Role;
 import com.onlinedukaan.model.User;
-import com.onlinedukaan.repository.UserRepo;
+import com.onlinedukaan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    UserRepo userRepo;
+    UserRepository userRepository;
 
     private static List<GrantedAuthority> getAuthorities(List<Role> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -29,7 +29,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(email);
+        User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("No user found with username: " + email);
         }
