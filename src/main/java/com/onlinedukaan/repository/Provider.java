@@ -1,4 +1,4 @@
-package com.onlinedukaan.repo;
+package com.onlinedukaan.repository;
 
 public enum Provider {
     LOCAL, GOOGLE

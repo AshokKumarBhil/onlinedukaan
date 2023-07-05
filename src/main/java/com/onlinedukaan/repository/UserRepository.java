@@ -1,4 +1,4 @@
-package com.onlinedukaan.repo;
+package com.onlinedukaan.repository;
 
 import com.onlinedukaan.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM USERS u WHERE u.email = ?1"
     ,nativeQuery = true)
     User findByEmail(String email);

@@ -2,9 +2,9 @@ package com.onlinedukaan.service;
 
 import com.onlinedukaan.model.Role;
 import com.onlinedukaan.model.User;
-import com.onlinedukaan.repo.Provider;
-import com.onlinedukaan.repo.RoleRepo;
-import com.onlinedukaan.repo.UserRepo;
+import com.onlinedukaan.repository.Provider;
+import com.onlinedukaan.repository.RoleRepository;
+import com.onlinedukaan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,21 +15,21 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    UserRepo userRepo;
+    UserRepository userRepository;
 
     @Autowired
-    RoleRepo roleRepo;
+    RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
-        return userRepo.findAll();
+        return userRepository.findAll();
     }
 
     public void addUser(User user) {
 
-        Role role = roleRepo.findByName("ROLE_USER");
+        Role role = roleRepository.findByName("ROLE_USER");
 
         if (role == null) {
             role = checkRoleExist();
@@ -39,21 +39,21 @@ public class UserService {
             user.setPassword(passwordEncoder.encode((user.getPassword())));
         }
         user.setProvider(Provider.LOCAL);
-        userRepo.save(user);
+        userRepository.save(user);
     }
 
     private Role checkRoleExist() {
         Role role = new Role();
         role.setName("ROLE_USER");
-        return roleRepo.save(role);
+        return roleRepository.save(role);
     }
 
     public User findUserByEmail(String email) {
-        return userRepo.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     public void processOAuthPostLogin(String email, String firstName, String lastName) {
-        User existUser = userRepo.findByEmail(email);
+        User existUser = userRepository.findByEmail(email);
 
         if (existUser == null) {
             User newUser = new User();
@@ -62,12 +62,12 @@ public class UserService {
             newUser.setEmail(email);
             newUser.setPassword(null);
             newUser.setProvider(Provider.GOOGLE);
-            Role role = roleRepo.findByName("ROLE_USER");
+            Role role = roleRepository.findByName("ROLE_USER");
             if (role == null) {
                 role = checkRoleExist();
             }
             newUser.setRoles(Arrays.asList(role));
-            userRepo.save(newUser);
+            userRepository.save(newUser);
         }
     }
 }

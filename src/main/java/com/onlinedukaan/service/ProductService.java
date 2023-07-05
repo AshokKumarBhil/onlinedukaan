@@ -1,7 +1,7 @@
 package com.onlinedukaan.service;
 
 import com.onlinedukaan.model.Product;
-import com.onlinedukaan.repo.ProductRepo;
+import com.onlinedukaan.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +9,14 @@ import java.util.List;
 
 @Service
 public class ProductService {
+
     @Autowired
-    ProductRepo productRepo;
+    ProductRepository productRepository;
+
     List<Product> productList;
 
     public List<Product> getAllProduct() {
-        productList = productRepo.findAll();
+        productList = productRepository.findAll();
         return productList;
     }
 
@@ -27,7 +29,7 @@ public class ProductService {
     }
 
     public void deleteProduct(long id) {
-        productRepo.deleteById(id);
+        productRepository.deleteById(id);
     }
 
     public void updateProduct(long id) {
@@ -35,16 +37,16 @@ public class ProductService {
     }
 
     public Product getProduct(long id) {
-        return productRepo.getById(id);
+        return productRepository.getById(id);
     }
 
     public List<Product> getGroceryProducts()
     {
-        return productRepo.getGroceryProducts();
+        return productRepository.getGroceryProducts();
     }
 
     public List<Product> getStationaryProducts()
     {
-        return productRepo.getStationaryProducts();
+        return productRepository.getStationaryProducts();
     }
 }

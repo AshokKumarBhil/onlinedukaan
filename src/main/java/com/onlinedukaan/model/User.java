@@ -1,6 +1,6 @@
 package com.onlinedukaan.model;
 
-import com.onlinedukaan.repo.Provider;
+import com.onlinedukaan.repository.Provider;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

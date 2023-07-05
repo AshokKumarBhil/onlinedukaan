@@ -2,7 +2,7 @@ package com.onlinedukaan.service;
 
 import com.onlinedukaan.model.Role;
 import com.onlinedukaan.model.User;
-import com.onlinedukaan.repo.UserRepo;
+import com.onlinedukaan.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

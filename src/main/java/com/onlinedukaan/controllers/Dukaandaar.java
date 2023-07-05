@@ -2,7 +2,7 @@ package com.onlinedukaan.controllers;
 
 import com.onlinedukaan.global.GlobalData;
 import com.onlinedukaan.model.Product;
-import com.onlinedukaan.repo.ProductRepo;
+import com.onlinedukaan.repository.ProductRepo;
 import com.onlinedukaan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

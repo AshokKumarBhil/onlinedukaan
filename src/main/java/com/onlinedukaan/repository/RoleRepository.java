@@ -1,10 +1,10 @@
-package com.onlinedukaan.repo;
+package com.onlinedukaan.repository;
 
 import com.onlinedukaan.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepo extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
     Role findByName(String name);
 }
