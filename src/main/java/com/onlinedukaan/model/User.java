@@ -1,8 +1,9 @@
 package com.onlinedukaan.model;
 
 import com.onlinedukaan.repository.Provider;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 public class User {
 
@@ -44,8 +46,8 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
-    @OneToOne
-    Cart cart;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems = new ArrayList<>();
 
     public User(User user) {
         this.firstName = user.getFirstName();

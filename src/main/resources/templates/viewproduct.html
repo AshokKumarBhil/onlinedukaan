@@ -54,7 +54,7 @@
         <div class="col-sm-7 mt-5">
             <h2 th:text="${product.productName}"></h2>
             <h2>₹ <span th:text="${product.price}"></span></h2>
-            <a class="btn btn-primary" href="" th:href="@{/addToCart/{id}(id = ${product.productId})}">Add to cart</a>
+            <a class="btn btn-primary" href="" th:href="@{/addtocart/{id}(id = ${product.productId})}">Add to cart</a>
         </div>
     </div>
 </div>
