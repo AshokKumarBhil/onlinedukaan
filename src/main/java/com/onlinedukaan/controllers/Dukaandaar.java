@@ -1,6 +1,5 @@
 package com.onlinedukaan.controllers;
 
-import com.onlinedukaan.global.GlobalData;
 import com.onlinedukaan.model.Product;
 import com.onlinedukaan.repository.ProductRepository;
 import com.onlinedukaan.service.ProductService;

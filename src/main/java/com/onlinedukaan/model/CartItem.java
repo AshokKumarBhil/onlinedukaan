@@ -2,6 +2,7 @@ package com.onlinedukaan.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 
@@ -15,7 +16,8 @@ public class CartItem {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    private int quantity=1;
+    @Column(name = "quantity",columnDefinition ="integer default 1")
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
