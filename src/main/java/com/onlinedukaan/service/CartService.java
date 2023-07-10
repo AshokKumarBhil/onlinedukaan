@@ -17,7 +17,7 @@ public class CartService {
 
     public List<Product> findProductById(long userId) {
         List<Product> productList = new ArrayList<>();
-        List<CartItem> cartItems = cartItemRepository.findByUser_UserId(userId);
+        List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
         for (CartItem cartItem : cartItems)
         {
             productList.add(cartItem.getProduct());

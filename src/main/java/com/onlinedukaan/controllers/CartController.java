@@ -55,8 +55,6 @@ public class CartController {
         user.setCartItems(itemList);
         cartItemRepository.save(cartItem);
         return "redirect:/shop";
-
-
     }
 
     @GetMapping("/cart")
@@ -64,13 +62,18 @@ public class CartController {
         String email = principal.getName();
         User user = userService.findUserByEmail(email);
         List<Product> cart = cartService.findProductById(user.getUserId());
+        int cartCount = cart.size();
+        model.addAttribute("cartCount",cartCount);
         model.addAttribute("cart", cart);
         return "cart";
     }
 
-    @GetMapping("/cart/removeproduct/{id}")
-    public String removeItem(@PathVariable int id, Model model) {
-
-        return "redirect:/viewcart";
+    @GetMapping("/cart/removeitem/{id}")
+    public String removeItem(@PathVariable int id, Model model,Principal principal) {
+        String email = principal.getName();
+        User user = userService.findUserByEmail(email);
+        Product product = productService.getProduct(id);
+        cartItemRepository.deleteByProductAndUser(product,user);
+        return "redirect:/cart";
     }
 }
