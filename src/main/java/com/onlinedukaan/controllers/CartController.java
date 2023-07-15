@@ -63,14 +63,15 @@ public class CartController {
     @GetMapping("/cart")
     public String getCart(Model model, Principal principal) {
         String email = principal.getName();
-
         User user = userService.findUserByEmail(email);
         List<Product> cart = cartService.findProductById(user.getUserId());
         Map<Long,Integer> productQuantityMap = cartService.findQuantityOfProduct(user.getUserId());
+        int totalPrice = cartService.getTotalPriceOfItems(productQuantityMap);
         int cartCount = cart.size();
         model.addAttribute("cartCount",cartCount);
         model.addAttribute("cart", cart);
         model.addAttribute("map",productQuantityMap);
+        model.addAttribute("total",totalPrice);
         return "cart";
     }
 

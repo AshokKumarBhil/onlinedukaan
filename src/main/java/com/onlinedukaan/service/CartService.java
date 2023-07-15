@@ -17,6 +17,9 @@ public class CartService {
     @Autowired
     CartItemRepository cartItemRepository;
 
+    @Autowired
+    ProductService productService;
+
     public List<Product> findProductById(long userId) {
         List<Product> productList = new ArrayList<>();
         List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
@@ -36,5 +39,14 @@ public class CartService {
             map.put(cartItem.getProduct().getProductId(),cartItem.getQuantity());
         }
         return map;
+    }
+
+    public int getTotalPriceOfItems(Map<Long, Integer> productQuantityMap) {
+        int totalPrice = 0;
+        for (Long key : productQuantityMap.keySet()) {
+            int productPrice = productService.getProduct(key).getPrice();
+             totalPrice = totalPrice + productQuantityMap.get(key) * productPrice;
+        }
+        return totalPrice;
     }
 }
