@@ -60,7 +60,11 @@ public class HomeController {
         Product product = productService.getProduct(id);
         User user = userService.findUserByEmail(principal.getName());
         CartItem cartItem = cartItemRepository.findByUserAndProduct(user,product);
-
+        System.out.println(cartItem);
+        if (cartItem == null)
+        {
+            cartItem = new CartItem();
+        }
         model.addAttribute("product", product);
         model.addAttribute("cartItem",cartItem);
         return "viewproduct";
