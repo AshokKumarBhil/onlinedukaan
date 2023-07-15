@@ -84,10 +84,11 @@
                                         <div class="d-flex justify-content-between">
                                             <div>
                                                 <h5 th:text="${item.productName}">Blue denim shirt</h5>
-                                                <!--                                                <p class="mb-2 text-uppercase small">Category: <span th:text="${item.category.name}"></span></p>-->
-
                                             </div>
-
+                                        </div>
+                                        <div>
+                                            Quantity : <span th:text=${map.get(item.productId)}></span><br>
+                                            <a th:href="@{/cart/updatequantity/{product_id}(product_id=${item.productId})}">Update Product Quantity</a>
                                         </div>
                                         <div class="mt-5 d-flex justify-content-between align-items-center">
                                             <div>
@@ -95,10 +96,16 @@
                                                    th:href="@{/cart/removeitem/{product_id}(product_id=${item.productId})}"
                                                    type="button"><i
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
-
                                             </div>
-                                            <p class="mb-0"><span><strong>₹<span
-                                                    th:text="${item.price}"></span></strong></span></p>
+                                            <p class="mb-0">
+                                                <span>
+                                                    <strong>₹
+                                                        <span
+                                                    th:text="${item.price}">
+                                                        </span>
+                                                    </strong>
+                                                </span>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -111,14 +118,8 @@
 
                         </div>
                     </div>
-
-
                 </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
                 <div class="col-lg-4">
-
                     <!-- Card -->
                     <div class="card mb-4">
                         <div class="card-body">
@@ -150,9 +151,6 @@
 
                         </div>
                     </div>
-                    <!-- Card -->
-
-                    <!-- Card -->
                     <div class="card mb-4">
                         <div class="card-body">
 
@@ -173,22 +171,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Card -->
 
                 </div>
-                <!--Grid column-->
-
             </div>
-            <!--Grid row-->
-
         </section>
-        <!--Section: Block Content-->
-
     </div>
 </main>
-<!--Main layout-->
-
-
 <script crossorigin="anonymous"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

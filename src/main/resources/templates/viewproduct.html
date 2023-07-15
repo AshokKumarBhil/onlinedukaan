@@ -46,17 +46,25 @@
     </div>
 </nav>
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-sm-5 d-flex justify-content-center">
-            <img alt="" class="mt-5" height="300px" src="" th:src="@{${'/images/' + product.imageUrl}}"
-                 width="300px">
+        <div class="row">
+            <div class="col-sm-5 d-flex justify-content-center">
+                <img alt="" class="mt-5" height="300px" src="" th:src="@{${'/images/' + product.imageUrl}}"
+                     width="300px">
+            </div>
+            <div class="col-sm-7 mt-5">
+                <h2 th:text="${product.productName}"></h2>
+                <h2>₹ <span th:text="${product.price}"></span></h2>
+
+                <form method="post" th:action="@{/addtocart/{id}(id=${product.productId})}" th:object="${cartItem}" >
+                    <input name="id" th:field="*{id}" type="hidden">
+                    <input name="quantity" type="number" th:value="${cartItem.quantity}" th:field="*{quantity}" >
+                    <input name="user" th:field="*{user}" type="hidden">
+                    <input name="product" th:field="*{product}" type="hidden">
+                    <input type="submit" value="Add To Cart">
+                </form>
+            </div>
         </div>
-        <div class="col-sm-7 mt-5">
-            <h2 th:text="${product.productName}"></h2>
-            <h2>₹ <span th:text="${product.price}"></span></h2>
-            <a class="btn btn-primary" href="" th:href="@{/addtocart/{id}(id = ${product.productId})}">Add to cart</a>
-        </div>
-    </div>
+
 </div>
 
 

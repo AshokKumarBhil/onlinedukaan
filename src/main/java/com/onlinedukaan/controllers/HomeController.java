@@ -1,7 +1,11 @@
 package com.onlinedukaan.controllers;
 
+import com.onlinedukaan.model.CartItem;
 import com.onlinedukaan.model.Product;
+import com.onlinedukaan.model.User;
+import com.onlinedukaan.repository.CartItemRepository;
 import com.onlinedukaan.service.ProductService;
+import com.onlinedukaan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.websocket.server.PathParam;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -16,6 +21,12 @@ public class HomeController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    CartItemRepository cartItemRepository;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -45,9 +56,13 @@ public class HomeController {
     }
 
     @GetMapping("/shop/viewproduct/{id}")
-    public String viewProduct(@PathVariable long id, Model model) {
+    public String viewProduct(@PathVariable long id, Model model, Principal principal) {
         Product product = productService.getProduct(id);
+        User user = userService.findUserByEmail(principal.getName());
+        CartItem cartItem = cartItemRepository.findByUserAndProduct(user,product);
+
         model.addAttribute("product", product);
+        model.addAttribute("cartItem",cartItem);
         return "viewproduct";
     }
 }
