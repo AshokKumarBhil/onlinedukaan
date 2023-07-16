@@ -64,6 +64,7 @@ public class CartController {
     public String getCart(Model model, Principal principal) {
         String email = principal.getName();
         User user = userService.findUserByEmail(email);
+        System.out.println(email);
         List<Product> cart = cartService.findProductById(user.getUserId());
         Map<Long,Integer> productQuantityMap = cartService.findQuantityOfProduct(user.getUserId());
         int totalPrice = cartService.getTotalPriceOfItems(productQuantityMap);

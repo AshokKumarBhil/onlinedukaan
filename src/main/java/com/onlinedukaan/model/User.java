@@ -60,4 +60,7 @@ public class User {
         this.provider = provider;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
 }

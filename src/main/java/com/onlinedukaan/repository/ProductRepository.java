@@ -21,12 +21,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Override
     void deleteById(Long aLong);
     @Query(
-            value = "SELECT * FROM products p WHERE p.category = 'GROCERY'",
+            value = "SELECT * FROM product p WHERE p.category = 'GROCERY'",
             nativeQuery = true)
     List<Product> getGroceryProducts();
 
     @Query(
-            value = "SELECT * FROM products p WHERE p.category = 'STATIONARY'",
+            value = "SELECT * FROM product p WHERE p.category = 'STATIONARY'",
             nativeQuery = true)
     List<Product> getStationaryProducts();
 

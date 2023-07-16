@@ -58,9 +58,9 @@ public class HomeController {
     @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(@PathVariable long id, Model model, Principal principal) {
         Product product = productService.getProduct(id);
+        System.out.println(principal);
         User user = userService.findUserByEmail(principal.getName());
         CartItem cartItem = cartItemRepository.findByUserAndProduct(user,product);
-        System.out.println(cartItem);
         if (cartItem == null)
         {
             cartItem = new CartItem();
