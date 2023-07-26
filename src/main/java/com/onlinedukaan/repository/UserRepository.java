@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    User findByResetPasswordToken(String resetPasswordToken);
     @Query(value = "SELECT * FROM USERS u WHERE u.email = ?1"
     ,nativeQuery = true)
     User findByEmail(String email);

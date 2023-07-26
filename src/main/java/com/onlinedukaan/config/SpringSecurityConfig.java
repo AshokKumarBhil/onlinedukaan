@@ -49,7 +49,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register/**", "/images/**", "/productImages/**","/checkout/**", "/forgotpassword","/shop/**").permitAll()
+                .antMatchers("/", "/register/**", "/images/**", "/productImages/**","/checkout/**","/shop/**","/forgot_password/**","/reset_password/**").permitAll()
                 .antMatchers("/cart/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/dukaandaar/**").hasRole("ADMIN")
                 .anyRequest()

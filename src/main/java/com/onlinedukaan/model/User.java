@@ -40,6 +40,9 @@ public class User {
     @Column(nullable = false)
     private int wallet=0;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @Enumerated(EnumType.STRING)
     Provider provider;
 
