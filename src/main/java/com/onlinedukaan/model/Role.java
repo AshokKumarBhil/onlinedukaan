@@ -1,13 +1,19 @@
 package com.onlinedukaan.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "roles")
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
+@Proxy(lazy = false)
 public class Role {
 
     @Id
@@ -19,7 +25,5 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     List<User> users;
-
-
 
 }

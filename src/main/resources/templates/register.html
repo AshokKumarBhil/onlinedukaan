@@ -88,7 +88,7 @@
     </div>
 </nav>
 <div class="container">
-    <div class="col-sm-6">
+    <div class="container">
         <h3 style="margin-top: 10px">Register Now</h3>
         <p>Please fill out this to register</p>
         <form method="post" th:action="@{/register}" th:object="${user}">
@@ -127,8 +127,10 @@
                    th:if="${#fields.hasErrors('password')}"></p>
             </div>
 
-            <input class="btn btn-primary btn-block" type="submit" value="Register">
-            <span style="margin-top: 10px">Already have an account <a class="linkControl" href="./login.html"
+            <div>
+                <input class="btn btn-primary btn-block" type="submit" value="Register">
+            </div>
+           <span style="margin-top: 10px">Already have an account <a class="linkControl" href="./login.html"
                                                                       th:href="@{/signin}">Login here</a></span>
         </form>
     </div>
